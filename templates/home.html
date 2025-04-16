@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>Selamat Datang, {{ username }}!</h3>
+                    <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <p>Ini adalah halaman beranda setelah login berhasil.</p>
+                <p>Anda dapat menambahkan konten lainnya di sini.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
