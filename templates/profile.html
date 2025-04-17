@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <img src="{{ url_for('static', filename='uploads/' + current_user.profile_pic) if current_user.profile_pic else url_for('static', filename='images/default.png') }}" 
+                         class="rounded-circle mb-3" width="150" height="150">
+                    <h4>{{ current_user.first_name }} {{ current_user.last_name }}</h4>
+                    <p class="text-muted">@{{ current_user.username }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5>Informasi Profil</h5>
+                    <div>
+                        <a href="{{ url_for('edit_profile') }}" class="btn btn-sm btn-primary me-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form method="POST" action="{{ url_for('delete_account') }}" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-danger" 
+                                    onclick="return confirm('Yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.')">
+                                <i class="fas fa-trash-alt"></i> Hapus
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row" width="30%">Username</th>
+                                <td>@{{ current_user.username }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>{{ current_user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nomor HP</th>
+                                <td>{{ current_user.phone or '-' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alamat</th>
+                                <td>{{ current_user.address or '-' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

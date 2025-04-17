@@ -2,28 +2,66 @@
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Register</h3>
+                <h3 class="text-center">Registrasi Akun Baru</h3>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ url_for('register') }}">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                <form method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="first_name" class="form-label">Nama Depan</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="last_name" class="form-label">Nama Belakang</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                            <small class="text-muted">Nama pengguna untuk login</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                            <small class="text-muted">Minimal 8 karakter</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label">Nomor HP</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
                     </div>
-                    <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div><br>
-                    <button type="submit" class="btn btn-primary w-100">Register</button>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Alamat</label>
+                        <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="profile_pic" class="form-label">Foto Profil</label>
+                        <input type="file" class="form-control" id="profile_pic" name="profile_pic" accept="image/*">
+                        <small class="text-muted">Format: JPG, PNG (maks. 2MB)</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Daftar</button>
                 </form>
+
                 <div class="mt-3 text-center">
                     <p>Sudah punya akun? <a href="{{ url_for('login') }}">Login disini</a></p>
                 </div>
@@ -31,4 +69,26 @@
         </div>
     </div>
 </div>
+
+<!-- Add reCAPTCHA script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<style>
+    .card {
+        margin-top: 2rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #eee;
+    }
+    .form-label {
+        font-weight: 500;
+    }
+    .g-recaptcha {
+        display: flex;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+</style>
 {% endblock %}
