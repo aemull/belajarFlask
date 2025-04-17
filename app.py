@@ -76,7 +76,20 @@ def register():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        
+        recaptcha_response = request.form.get('g-recaptcha-response')
+
+        # Verifikasi reCAPTCHA
+        data = {
+            'secret': app.config['RECAPTCHA_SECRET_KEY'],
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+
+        if not result.get('success'):
+            flash('Verifikasi CAPTCHA gagal. Coba lagi.')
+            return redirect(url_for('register'))
+
         # Cek apakah username atau email sudah ada
         if User.query.filter_by(username=username).first():
             flash('Username sudah digunakan')
@@ -96,7 +109,7 @@ def register():
         flash('Registrasi berhasil! Silakan login')
         return redirect(url_for('login'))
     
-    return render_template('register.html')
+    return render_template('register.html', recaptcha_site_key=app.config['RECAPTCHA_SITE_KEY'])
 
 @app.route('/home')
 @login_required
